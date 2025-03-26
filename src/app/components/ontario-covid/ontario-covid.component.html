@@ -1,0 +1,68 @@
+<ion-card>
+  <ion-card-header color="secondary">
+    <ion-card-title>
+      <ion-icon name="map-outline"></ion-icon>
+      ONTARIO STATUS OF CASES
+    </ion-card-title>
+    <ion-card-subtitle>Status of cases</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div *ngIf="loading" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+      <p>Loading data...</p>
+    </div>
+
+    <div *ngIf="error" class="ion-text-center">
+      <ion-icon name="warning" size="large"></ion-icon>
+      <p>Failed to load data. Please try again.</p>
+      <ion-button color="primary" (click)="refresh()">Retry</ion-button>
+    </div>
+
+    <div class="stats-grid" *ngIf="!loading && !error">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" class="danger">
+            <h2>Total Cases</h2>
+            <div class="data-value">{{ ontarioData.total_cases }}</div>
+          </ion-col>
+          
+          <ion-col size="6" class="danger">
+            <h2>Total Deaths</h2>
+            <div class="data-value">{{ ontarioData.total_deaths }}</div>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="6" class="warning">
+            <h2>Active Cases</h2>
+            <div class="data-value">{{ ontarioData.active_cases }}</div>
+          </ion-col>
+          
+          <ion-col size="6" class="success">
+            <h2>Recovered</h2>
+            <div class="data-value">{{ ontarioData.recovered }}</div>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="6">
+            <h2>Hospitalizations</h2>
+            <div class="data-value">{{ ontarioData.hospitalizations }}</div>
+          </ion-col>
+          
+          <ion-col size="6">
+            <h2>ICU</h2>
+            <div class="data-value">{{ ontarioData.icu }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <div class="simple-divider"></div>
+      
+      <div class="date-display">
+        Last updated: {{ ontarioData.last_updated }}
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

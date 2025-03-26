@@ -1,0 +1,78 @@
+<ion-card>
+  <ion-card-header color="tertiary">
+    <ion-card-title>
+      <ion-icon name="business-outline"></ion-icon>
+      COVID-19 Data by Health Unit
+    </ion-card-title>
+    <ion-card-subtitle>Select a health unit to see details</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div *ngIf="message" class="ion-margin-bottom">
+      <div class="date-display">
+        {{ message }}
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+      <p>Loading data...</p>
+    </div>
+
+    <div *ngIf="error" class="ion-text-center">
+      <ion-icon name="warning" size="large"></ion-icon>
+      <p>Failed to load data. Please try again.</p>
+      <ion-button color="primary" (click)="refresh()">Retry</ion-button>
+    </div>
+
+    <div *ngIf="!loading && !error">
+      <div class="simple-divider"></div>
+      
+      <ion-list lines="full">
+        <ion-item *ngFor="let record of ontarioRecords" [routerLink]="['/covid-detail', record.id]" detail="true">
+          <ion-label>
+            <h2>{{ record.health_unit }}</h2>
+            <p>New Cases: <span class="highlight danger">{{ record.new_cases }}</span> | Total Cases: <span class="highlight">{{ record.total_cases }}</span></p>
+            <p>Active: <span class="highlight warning">{{ record.active_cases }}</span> | Resolved: <span class="highlight success">{{ record.resolved_cases }}</span> | Deaths: <span class="highlight danger">{{ record.deaths }}</span></p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      
+      <div class="date-display ion-margin-top">
+        Data as of {{ ontarioRecords[0]?.date || 'N/A' }}
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<style>
+  h2 {
+    font-weight: 500;
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 4px;
+  }
+  
+  p {
+    font-size: 14px;
+    margin: 2px 0;
+    color: #333333;
+  }
+  
+  .highlight {
+    font-weight: 500;
+    color: #d4da24;
+  }
+  
+  .highlight.success {
+    color: #00ff2a;
+  }
+  
+  .highlight.warning {
+    color: #2a0ce7;
+  }
+  
+  .highlight.danger {
+    color: #ff1900;
+  }
+</style>

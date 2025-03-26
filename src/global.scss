@@ -1,37 +1,154 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
+/* Global Ionic Imports */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Utilities */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* Global Theme */
+:root {
+  --background: #ffffff;
+  --text-color: #000000;
+  --accent: #000000;
+  --muted: #f5f5f5;
+}
+
+body {
+  background-color: var(--background);
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  margin: 0;
+}
+
+ion-header ion-toolbar {
+  --background: var(--accent);
+  --color: #ffffff;
+}
+
+ion-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+ion-back-button {
+  --color: #ffffff;
+}
+
+ion-card {
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  box-shadow: none;
+  margin: 12px 0;
+}
+
+ion-card-header {
+  background: var(--accent);
+}
+
+ion-card-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+ion-card-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+ion-card-content {
+  padding: 16px;
+}
+
+ion-button {
+  --background: var(--accent);
+  --color: #ffffff;
+  --border-radius: 0;
+  --box-shadow: none;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: #ffffff;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --border-color: rgba(0, 0, 0, 0.1);
+}
+
+ion-spinner {
+  color: var(--accent);
+}
+
+ion-tab-bar {
+  --background: var(--accent);
+  --color: #cccccc;
+  --color-selected: #ffffff;
+  --border: none;
+}
+
+.data-value {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.stats-grid ion-col {
+  background-color: var(--muted);
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  margin: 4px;
+  padding: 12px;
+}
+
+.stats-grid h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+.simple-divider {
+  height: 1px;
+  background-color: var(--accent);
+  margin: 16px 0;
+}
+
+.date-display {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  text-align: center;
+  margin: 12px 0;
+}
+
+.highlight {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ion-icon {
+  color: inherit;
+}

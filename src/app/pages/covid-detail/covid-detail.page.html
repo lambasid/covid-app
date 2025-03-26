@@ -1,0 +1,186 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2" text="Ontario"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="clipboard-outline"></ion-icon>
+      COVID-19 Health Unit Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="loading" class="ion-text-center ion-margin">
+    <ion-spinner></ion-spinner>
+    <p>Loading data...</p>
+  </div>
+
+  <div *ngIf="error" class="ion-text-center ion-margin">
+    <ion-icon name="warning" size="large"></ion-icon>
+    <p>Failed to load data. Please try again.</p>
+    <ion-button color="primary" (click)="loadRecordDetails()">Retry</ion-button>
+  </div>
+
+
+  <app-ontario-covid *ngIf="!loading && !error"></app-ontario-covid>
+
+
+  <ion-card *ngIf="!loading && !error && record">
+    <ion-card-header color="tertiary">
+      <ion-card-title>
+        <ion-icon name="analytics-outline"></ion-icon>
+        {{ record.health_unit }}
+      </ion-card-title>
+      <ion-card-subtitle>Data for {{ record.date }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="stats-grid">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" class="danger">
+              <h2>New Cases</h2>
+              <div class="data-value">{{ record.new_cases }}</div>
+            </ion-col>
+            
+            <ion-col size="6" class="danger">
+              <h2>Total Cases</h2>
+              <div class="data-value">{{ record.total_cases | number }}</div>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col size="6" class="warning">
+              <h2>Active Cases</h2>
+              <div class="data-value">{{ record.active_cases | number }}</div>
+            </ion-col>
+            
+            <ion-col size="6" class="success">
+              <h2>Resolved Cases</h2>
+              <div class="data-value">{{ record.resolved_cases | number }}</div>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col size="6" class="danger">
+              <h2>Deaths</h2>
+              <div class="data-value">{{ record.deaths | number }}</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="simple-divider"></div>
+
+      <div class="data-source">
+        <ion-item lines="none">
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          <ion-label>
+            <p>Data last updated: {{ record.date }}</p>
+            <p>Source: Government of Ontario COVID-19 Data</p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="!loading && !error">
+    <ion-card-header color="secondary">
+      <ion-card-title>
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        Send a Message to Ontario Tab
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Message</ion-label>
+        <ion-input [(ngModel)]="message" placeholder="Type your message here"></ion-input>
+      </ion-item>
+      <ion-button expand="block" color="primary" class="ion-margin-top" (click)="sendMessage()" [disabled]="!message.trim()">
+        <ion-icon name="send-outline" slot="start"></ion-icon>
+        Send Message
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- <ion-card *ngIf="!loading && !error">
+    <ion-card-header color="medium">
+      <ion-card-title>
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Data Source Information
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>The data shown on this page is retrieved from the Government of Ontario's COVID-19 data repository.</p>
+      <p>Data was downloaded and stored locally as JSON using the convertcsv.com tool.</p>
+      
+      <div class="simple-divider"></div>
+      
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Data Last Updated</h3>
+            <p>{{ dataUpdated }}</p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="link-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Ontario Data Source</h3>
+            <p>
+              <a [href]="dataSources.ontario" target="_blank">{{ dataSources.ontario }}</a>
+            </p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="link-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Canada Data Source</h3>
+            <p>
+              <a [href]="dataSources.canada" target="_blank">{{ dataSources.canada }}</a>
+            </p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="code-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Data Format Conversion</h3>
+            <p>
+              <a href="https://www.convertcsv.com/csv-to-json.htm" target="_blank">
+                https://www.convertcsv.com/csv-to-json.htm
+              </a>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card> -->
+</ion-content>
+
+<style>
+  ion-back-button {
+    --color: white;
+  }
+  
+  ion-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  h3 {
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  p {
+    color: #333333;
+  }
+</style>
